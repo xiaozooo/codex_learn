@@ -17,6 +17,7 @@ export function LearningSectionCard({
       <div className="section-grid">
         {section.items.map((item) => (
           <article key={item.title} className="item-card">
+            <code className="command-chip">{item.title}</code>
             <h3>{item.title}</h3>
             <p>{item.description}</p>
             {item.example ? <code>{item.example}</code> : null}

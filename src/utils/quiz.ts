@@ -11,3 +11,22 @@ export function calculateScore(
     return score;
   }, 0);
 }
+
+export function pickRandomQuestions(
+  questions: QuizQuestion[],
+  count: number,
+  random: () => number = Math.random,
+): QuizQuestion[] {
+  const pool = [...questions];
+  const selection: QuizQuestion[] = [];
+  const limit = Math.min(count, pool.length);
+
+  while (selection.length < limit) {
+    const index = Math.floor(random() * pool.length);
+    const [question] = pool.splice(index, 1);
+
+    selection.push(question);
+  }
+
+  return selection;
+}

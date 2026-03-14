@@ -233,14 +233,25 @@ input {
 
 .module-strip {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: 1.2fr repeat(3, minmax(0, 1fr));
   gap: 14px;
   margin: 26px 0;
 }
 
-.module-pill {
+.module-strip-header {
   padding: 18px 20px;
+}
+
+.module-strip-header h2 {
+  margin: 0 0 8px;
+}
+
+.module-pill {
   border: 1px solid var(--line);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  padding: 18px 20px;
   border-radius: 20px;
   background: var(--panel);
 }
@@ -286,6 +297,17 @@ input {
   border: 1px solid var(--line);
   border-radius: 22px;
   background: rgba(255, 255, 255, 0.56);
+}
+
+.command-chip {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: #13262d;
+  color: #d9f5eb;
+  font-family: "IBM Plex Mono", "Fira Code", monospace;
+  font-size: 0.85rem;
 }
 
 .item-card h3,

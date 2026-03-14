@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { quizQuestions } from "../data/quiz";
-import { calculateScore } from "../utils/quiz";
+import { calculateScore, pickRandomQuestions } from "../utils/quiz";
 
 export function Quiz() {
+  const [selectedQuestions, setSelectedQuestions] = useState(() =>
+    pickRandomQuestions(quizQuestions, 5),
+  );
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [submitted, setSubmitted] = useState(false);
 
-  const score = submitted ? calculateScore(quizQuestions, answers) : 0;
+  const score = submitted ? calculateScore(selectedQuestions, answers) : 0;
 
   function handleAnswerChange(questionId: string, optionIndex: number) {
     setAnswers((current) => ({
@@ -20,6 +23,7 @@ export function Quiz() {
   }
 
   function handleReset() {
+    setSelectedQuestions(pickRandomQuestions(quizQuestions, 5));
     setAnswers({});
     setSubmitted(false);
   }
@@ -30,12 +34,12 @@ export function Quiz() {
         <p className="eyebrow">Quick Check</p>
         <h1>Codex 小测验</h1>
         <p>
-          8 道单选题，覆盖探索环境、提问方式、TDD、验证与 GitHub Pages 部署等首版核心概念。
+          当前题库共 100 题，每次会随机抽取 5 题。题目覆盖顶层命令、全局选项和 MCP 子命令。
         </p>
       </div>
 
       <div className="quiz-list">
-        {quizQuestions.map((question, index) => (
+        {selectedQuestions.map((question, index) => (
           <article key={question.id} className="quiz-card">
             <div className="quiz-card-header">
               <span>{String(index + 1).padStart(2, "0")}</span>
@@ -81,7 +85,7 @@ export function Quiz() {
             <div className="result-panel" aria-live="polite">
               <p className="result-label">你的得分</p>
               <strong>
-                {score} / {quizQuestions.length}
+                {score} / {selectedQuestions.length}
               </strong>
             </div>
             <button className="button button-primary" onClick={handleReset} type="button">
